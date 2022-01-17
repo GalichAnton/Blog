@@ -1,0 +1,36 @@
+.container{
+  padding: 100px 70px;
+}
+
+.about__name{
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 52px;
+  margin-bottom: 15px;
+}
+.about__title{
+  color:var(--light-grey);
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 52px;
+  margin-bottom: 23px;
+}
+
+.about__photo{
+  width: 584px;
+  height: 422px;
+  object-fit: cover;
+  margin-bottom: 24px;
+}
+
+.about__subtitle{
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 52px;
+  margin-bottom: 20px;
+}
+
+.about__descr{
+  font-size: 16px;
+  line-height: 28px;
+}

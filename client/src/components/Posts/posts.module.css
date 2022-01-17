@@ -1,0 +1,46 @@
+.posts__container{
+  border-left: 1px solid #F9F9F9;
+}
+
+.posts__btns{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 180px;
+}
+.posts__arrow{
+  width: 77px;
+  height: 50px;
+  background: #F9F9F9;
+  border-radius: 3px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all ease-in-out .5s;
+}
+.posts__arrowLeft{
+  transform: rotate(180deg);
+}
+.posts__arrow :hover{
+  opacity: 0.5;
+}
+
+.posts__bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px 0px;
+}
+.posts__pages{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #AEB3B7;
+}
+
+.posts__arrowDisabled{
+  opacity: 0.2;
+}

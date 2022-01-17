@@ -1,0 +1,49 @@
+.profile__container{
+  display: grid;
+  max-width: 90%;
+  grid-template-columns: 9fr  1fr;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.profile__content{
+  width: 800px;
+  margin: 0 auto;
+}
+
+.profile__name{
+  font-weight: 800;
+  font-size: 58px;
+  line-height: 52px;
+  color: #0058D9;
+}
+.profile__date{
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 52px;
+}
+.profile__head{
+  border-bottom: 1px solid #F2F2F2;
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+}
+
+.profile__tabs{
+  font-size: 14px;
+  line-height: 17px;
+  border: none;
+  width: 140px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__tabActive{
+  color:#36B55A;
+  background: rgba(64, 210, 105, 0.08);
+}
+
+.profile__tab{
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
