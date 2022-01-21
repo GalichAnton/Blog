@@ -13,7 +13,7 @@ import { SimpleMdeReact } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { useParams } from 'react-router-dom';
 import MyLoader from '../Skeleton/Loader';
-import cn from 'classnames';
+import UploadBar from '../UploadBar/UploadBar';
 
 const EditPost = () => {
   const dispatch = useDispatch();
@@ -45,10 +45,10 @@ const EditPost = () => {
     });
   };
 
-  const onChangeUrl = (e: SyntheticEvent<HTMLInputElement>) => {
+  const onChangeUrl = (url: string) => {
     setInputValue({
       ...inputValue,
-      photoUrl: e.currentTarget.value,
+      photoUrl: url,
     });
   };
 
@@ -85,23 +85,7 @@ const EditPost = () => {
             </label>
             <textarea className={styles.editPost__input} name="shortDescr" rows={5} />
           </div>
-          <div className={styles.editPost__inputContainer}>
-            <label className={styles.editPost__label} htmlFor="url">
-              Ссылка на изображение:
-            </label>
-            <div className={styles.editPost__imgUpload}>
-              <input
-                onChange={onChangeUrl}
-                value={inputValue.photoUrl}
-                className={cn(styles.editPost__input, styles.editPost__inputImg)}
-                name="url"
-                type="url"
-              />
-              <button className={cn(styles.editPost__imgBtn, styles.editPost__save)}>
-                Загрузить
-              </button>
-            </div>
-          </div>
+          <UploadBar onChangeUrl={onChangeUrl} url={inputValue.photoUrl} />
           <div className={styles.editPost__inputContainer}>
             <label className={styles.editPost__label} htmlFor="text">
               Полное описание

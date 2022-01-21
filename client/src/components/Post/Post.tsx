@@ -34,7 +34,13 @@ const Post: FC<IProps> = ({ post }) => {
           </h3>
           <p className={styles.post__descr}>{post.text}</p>
         </div>
-        {post.photoUrl && <img className={styles.post__img} src={post.photoUrl} alt="test" />}
+        {post.photoUrl && (
+          <img
+            className={styles.post__img}
+            src={`http://localhost:5656/${post.photoUrl}`}
+            alt="test"
+          />
+        )}
       </div>
       <div className={styles.post__info}>
         <div className={styles.post__data}>{dateParser(post.createdAt)}</div>

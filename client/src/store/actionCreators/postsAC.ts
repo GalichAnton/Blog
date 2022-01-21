@@ -33,7 +33,7 @@ export const getPost = (id: string) => {
   };
 };
 
-export const createPost = (title: string, text: string, photoUrl: string) => {
+export const createPost = (title: string, text: string, photoUrl?: string) => {
   return async (dispatch: Dispatch<postActions>) => {
     try {
       dispatch({ type: PostsActionTypes.FETCH_POST });

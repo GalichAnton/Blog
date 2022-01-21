@@ -37,10 +37,7 @@
   width: 100%;
 }
 
-.createPost__imgUpload{
-  display: flex;
-  justify-content: space-between;
-}
+
 
 .createPost__btn{
   background: #FFDF36;
@@ -54,11 +51,7 @@
   align-self: flex-end;
   cursor: pointer;
 }
-.createPost__imgBtn{
-  background-color: #6FCF97 ;
-  color: #FFFFFF;
-  width: 20%;
-}
+
 .createPost_loading{
   animation: loading 2s ease-in-out infinite;
 }
@@ -70,42 +63,3 @@
   margin-left: 15px;
 }
 
-.input__file {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-}
-
-
-.input__fileButtonText {
-  line-height: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.input__fileButton {
-  width: 100%;
-  padding: 15px;
-  background: #1bbc9b;
-  color: #fff;
-  font-size: 1.125rem;
-  font-weight: 700;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  cursor: cell;
-}
-
-.input__fileIcon{
-  margin-right: 15px;
-}
-
-.input__btnUpload{
-  border: none;
-  cursor: pointer;
-  background: #1bbc9b;
-}

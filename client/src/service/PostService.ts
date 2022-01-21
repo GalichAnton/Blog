@@ -14,9 +14,17 @@ export default class PostService {
   static async createPost(
     title: string,
     text: string,
-    photoUrl: string
+    photoUrl?: string
   ): Promise<AxiosResponse<PostResponseType>> {
-    return $postsApiWithToken.post<PostResponseType>(`/posts/`, { title, text, photoUrl });
+    return $postsApi.post<PostResponseType>(
+      `/posts/`,
+      { title, text, photoUrl },
+      {
+        headers: {
+          Authorization: localStorage.getItem('token') || '',
+        },
+      }
+    );
   }
 
   static async deletePost(id: string): Promise<void> {

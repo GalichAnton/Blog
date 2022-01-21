@@ -24,6 +24,7 @@ export const postReducer = (state = initialState, action: postActions): IPostSta
     case PostsActionTypes.UPDATE_POST:
       return {
         ...state,
+        loading: false,
         posts: state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         ),

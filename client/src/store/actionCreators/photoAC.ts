@@ -5,15 +5,21 @@ import { photoActions, PhotoActionTypes } from '../../types/photoTypes';
 export const getPhotoUrl = (file: any) => {
   return async (dispatch: Dispatch<photoActions>) => {
     try {
-      console.log(file);
+      dispatch({
+        type: PhotoActionTypes.PHOTO_FETCHING,
+      });
       const { data } = await PhotoService.upload(file);
-      console.log(data);
       dispatch({
         type: PhotoActionTypes.SET_PHOTO_URL,
         payload: data.url,
       });
+      dispatch({
+        type: PhotoActionTypes.PHOTO_FETCHED,
+      });
     } catch (e: any) {
-      console.log(e.response);
+      dispatch({
+        type: PhotoActionTypes.PHOTO_FETCHED,
+      });
     }
   };
 };
