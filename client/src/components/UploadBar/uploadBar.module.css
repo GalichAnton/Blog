@@ -1,0 +1,71 @@
+.uploadBar__inputContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.uploadBar__label{
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0A3465;
+}
+
+.uploadBar__imgUpload{
+  display: flex;
+  justify-content: space-between;
+}
+
+.uploadBar__input{
+  border: 1px solid #ECEEF1;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  padding: 10px;
+  resize: none;
+}
+
+.uploadBar__inputImg{
+  width: 80%;
+}
+
+
+.input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+
+.input__fileButtonText {
+  line-height: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input__fileButton {
+  width: 100%;
+  padding: 15px;
+  background: #1bbc9b;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: cell;
+}
+
+.input__fileIcon{
+  margin-right: 15px;
+}
+
+.input__btnUpload{
+  border: none;
+  cursor: pointer;
+  background: #1bbc9b;
+}

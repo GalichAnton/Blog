@@ -1,0 +1,79 @@
+.editPost__container{
+  display: flex;
+  flex-direction: column;
+  padding: 70px 85px 0 60px;
+}
+.editPost__titleInput{
+  outline: none;
+  border: none;
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 52px;
+  color: #333333;
+  margin-bottom: 25px;
+}
+.editPost__inputContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.editPost__label{
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0A3465;
+}
+.editPost__input{
+  border: 1px solid #ECEEF1;
+  border-radius: 10px;
+  font-size: 18px;
+  outline: none;
+  padding: 15px;
+}
+
+.editPost__btns{
+  display: flex;
+  justify-content: space-between;
+}
+
+.editPost__save{
+  background: #FFDF36;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px;
+  border: none;
+  width: 30%;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.editPost__delete{
+  background: #F3F3F3;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px;
+  border: none;
+  width: 30%;
+  align-self: flex-end;
+  cursor: pointer;
+}
+.editPost__inputImg{
+  width: 70%;
+}
+
+.editPost__imgUpload{
+  display: flex;
+  justify-content: space-between;
+}
+
+.editPost__imgBtn{
+  background-color: #6FCF97 ;
+  color: #FFFFFF;
+  width: 20%;
+}
+

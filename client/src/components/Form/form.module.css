@@ -1,0 +1,79 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 360px;
+}
+.form__header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  font-size: 26px;
+  line-height: 110%;
+  font-weight: 700;
+}
+
+.form__close{
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.form__label{
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  margin-bottom: 8px;
+}
+.form__input{
+  padding: 15px;
+  border: 1px solid #EEEEEE;
+  outline: none;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.form__submit{
+  padding: 15px;
+  width: 100%;
+  background-color: #FFDF36;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.form__passwordToggler{
+  width: 25px;
+  height: 25px;
+  margin-left: -35px;
+  cursor: pointer;
+}
+
+.form__inputContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form__passwordContainer{
+  display: flex;
+  align-items: center;
+}
+
+.form__inputError{
+  color: red;
+}
+
+.form__registration{
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  text-decoration: underline;
+}
+
+.form__submit_loading{
+  animation: loading 2s ease-in-out infinite;
+}
+
