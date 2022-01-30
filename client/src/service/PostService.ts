@@ -3,12 +3,14 @@ import { PostResponseType, PostsResponseType } from '../types/responseTypes/Resp
 import { $contentApi } from '../http/ContentApi';
 
 export default class PostService {
-  static async getAllPost(search = ''): Promise<AxiosResponse<PostsResponseType>> {
-    return $contentApi.get<PostsResponseType>(`/posts?query=${search}&limit=100`);
-  }
-
-  static async getPagePosts(): Promise<AxiosResponse<PostsResponseType>> {
-    return $contentApi.get<PostsResponseType>(`/posts`);
+  static async getPosts(
+    searchValue?: string,
+    page?: number,
+    userId = ''
+  ): Promise<AxiosResponse<PostsResponseType>> {
+    return $contentApi.get<PostsResponseType>(
+      `/posts?page=${page}&query=${searchValue}&userId=${userId}`
+    );
   }
 
   static async getPost(id: string): Promise<AxiosResponse<PostResponseType>> {

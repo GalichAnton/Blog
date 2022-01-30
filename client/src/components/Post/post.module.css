@@ -2,9 +2,12 @@
   padding: 30px 30px;
   border-left: 4px solid transparent;
   cursor: pointer;
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: #080B0E;
+  min-height: 250px;
+  margin: 10px 0;
 }
 .container_active{
   border-left: 4px solid #13315E;
@@ -18,12 +21,14 @@
   flex: 1;
 }
 .post__title{
-  font-family: Nunito;
+  flex: 1;
+  font-family: Nunito,sans-serif;
   font-weight: 800;
   font-size: 24px;
   line-height: 30px;
   margin-bottom: 10px;
   text-decoration: none;
+  display: inline-block;
 }
 
 .post__descr{
@@ -38,7 +43,7 @@
   height: 150px;
 }
 .post__info{
-  font-family: IBM Plex Sans;
+  font-family: IBM Plex Sans,sans-serif;
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0.01em;

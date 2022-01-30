@@ -8,8 +8,6 @@ export const loginUser = (email: string, password: string) => {
     try {
       dispatch({ type: UserActionTypes.FETCHING_USER });
       const response = await AuthService.login(email, password);
-      console.log(response);
-      localStorage.setItem('token', response.data.token);
       dispatch({
         type: UserActionTypes.SET_USER,
         payload: response.data,
@@ -28,18 +26,16 @@ export const loginUser = (email: string, password: string) => {
 };
 
 export const registerUser = (fullName: string, email: string, password: string) => {
-  return async (dispatch: Dispatch<userActions>) => {
+  return async (dispatch: Dispatch<userActions | modalActions>) => {
     try {
       dispatch({ type: UserActionTypes.FETCHING_USER });
       const response = await AuthService.registration(fullName, email, password);
-      console.log(response);
-      localStorage.setItem('token', response.data.token);
       dispatch({
         type: UserActionTypes.SET_USER,
         payload: response.data,
       });
       dispatch({ type: UserActionTypes.SET_USER_ERROR, payload: '' });
-      dispatch({ type: UserActionTypes.FETCHING_USER });
+      dispatch({ type: ModalActionTypes.SET_MODAL_ACTIVE });
     } catch (e: any) {
       if (e.response) {
         console.log(e.response.data.error);
@@ -47,7 +43,6 @@ export const registerUser = (fullName: string, email: string, password: string) 
       } else if (e.request) {
         console.log(e.request);
       }
-      dispatch({ type: UserActionTypes.FETCHING_USER });
     }
   };
 };

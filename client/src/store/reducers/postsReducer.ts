@@ -4,6 +4,7 @@ const initialState: IPostState = {
   posts: [],
   currentPost: {} as IPost,
   loading: false,
+  total: 0,
 };
 
 export const postReducer = (state = initialState, action: postActions): IPostState => {
@@ -13,9 +14,11 @@ export const postReducer = (state = initialState, action: postActions): IPostSta
     case PostsActionTypes.CREATE_POST:
       return { ...state, posts: [action.payload, ...state.posts], loading: false };
     case PostsActionTypes.GET_PAGE_POSTS:
-      return { ...state, posts: [...state.posts, ...action.payload] };
-    case PostsActionTypes.GET_ALL_POSTS:
-      return { ...state, posts: action.payload };
+      return {
+        ...state,
+        posts: action.payload.posts,
+        total: action.payload.total,
+      };
     case PostsActionTypes.GET_POST:
       return { ...state, currentPost: action.payload, loading: false };
     case PostsActionTypes.DELETE_POST:

@@ -2,29 +2,13 @@ import { Dispatch } from 'redux';
 import { postActions, PostsActionTypes } from '../../types/postsTypes';
 import PostService from '../../service/PostService';
 
-export const getAllPosts = (search = '') => {
+export const getPosts = (searchValue?: string, page?: number, userId?: string) => {
   return async (dispatch: Dispatch<postActions>) => {
     try {
-      const { data } = await PostService.getAllPost(search);
-      console.log(data);
-      dispatch({
-        type: PostsActionTypes.GET_ALL_POSTS,
-        payload: data.items,
-      });
-    } catch (e: any) {
-      console.log(e.response.data.error);
-    }
-  };
-};
-
-export const getPagePosts = () => {
-  return async (dispatch: Dispatch<postActions>) => {
-    try {
-      const { data } = await PostService.getPagePosts();
-      console.log(data);
+      const { data } = await PostService.getPosts(searchValue, page, userId);
       dispatch({
         type: PostsActionTypes.GET_PAGE_POSTS,
-        payload: data.items,
+        payload: { posts: data.items, total: data.total },
       });
     } catch (e: any) {
       console.log(e.response.data.error);

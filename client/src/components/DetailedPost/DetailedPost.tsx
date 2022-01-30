@@ -29,7 +29,6 @@ const DetailedPost = () => {
     if (id) {
       dispatch(getPost(id));
       window.scrollTo(0, 0);
-      console.log(process.env.REACT_APP_CONTENT_API_URL);
     }
     dispatch(getAllComments());
   }, [id]);

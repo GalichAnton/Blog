@@ -3,12 +3,7 @@ import styles from './editPost.module.css';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { currentPostSelector } from '../../store/Selectors/Selectors';
-import {
-  deletePost,
-  getAllPosts,
-  getPost,
-  updatePost,
-} from '../../store/actionCreators/postsAC';
+import { deletePost, getPost, getPosts, updatePost } from '../../store/actionCreators/postsAC';
 import { SimpleMdeReact } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { useParams } from 'react-router-dom';
@@ -75,7 +70,7 @@ const EditPost = () => {
           id
         )
       );
-      dispatch(getAllPosts());
+      dispatch(getPosts());
     }
   };
 

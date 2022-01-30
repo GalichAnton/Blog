@@ -9,12 +9,6 @@ export const currentPostIdSelector = (state: RootState) => state.posts.currentPo
 export const currentPostSelector = (state: RootState) => state.posts.currentPost;
 export const tokenSelector = (state: RootState) => state.user.user.token;
 
-export const userPostsSelector = createSelector(
-  [userIdSelector, postsSelector],
-  (id, posts) => {
-    return posts.filter((post) => post.user._id === id);
-  }
-);
 export const userCommentsSelector = createSelector(
   [userIdSelector, commentsSelector],
   (id, comments) => {

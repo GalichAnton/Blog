@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { removeUser } from '../../store/actionCreators/userAC';
 import { Link } from 'react-router-dom';
 import { tokenSelector } from '../../store/Selectors/Selectors';
-import { getAllPosts } from '../../store/actionCreators/postsAC';
+import { getPosts } from '../../store/actionCreators/postsAC';
 import { setSearchValue } from '../../store/actionCreators/searchAC';
 
 const SearchLine = () => {
@@ -35,7 +35,7 @@ const SearchLine = () => {
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      dispatch(getAllPosts(searchValue));
+      dispatch(getPosts(searchValue));
       dispatch(setSearchValue(''));
     }
   };

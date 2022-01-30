@@ -19,6 +19,7 @@ export interface IPostState {
   posts: IPost[];
   currentPost: IPost;
   loading: boolean;
+  total: number;
 }
 
 export enum PostsActionTypes {
@@ -36,14 +37,9 @@ interface IPostsActionCreate {
   payload: IPost;
 }
 
-interface IPostActionGetAll {
-  type: PostsActionTypes.GET_ALL_POSTS;
-  payload: IPost[];
-}
-
 interface IPagePostGet {
   type: PostsActionTypes.GET_PAGE_POSTS;
-  payload: IPost[];
+  payload: { posts: IPost[]; total: number };
 }
 
 interface IPostActionGet {
@@ -67,7 +63,6 @@ interface IPostUpdate {
 
 export type postActions =
   | IPostsActionCreate
-  | IPostActionGetAll
   | IPostActionGet
   | IPostActionFetch
   | IPostDelete

@@ -3,30 +3,29 @@ import SearchLine from '../SearchLine/SearchLine';
 import styles from './posts.module.css';
 import Post from '../Post/Post';
 import { useDispatch } from 'react-redux';
-import { getPagePosts } from '../../store/actionCreators/postsAC';
+import { getPosts } from '../../store/actionCreators/postsAC';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import cn from 'classnames';
-import { IPost } from '../../types/postsTypes';
 import { postsSelector } from '../../store/Selectors/Selectors';
 
 const Posts = () => {
   const limit = 5;
   const dispatch = useDispatch();
   const posts = useAppSelector(postsSelector);
+  const total = useAppSelector((state) => state.posts.total);
+  const searchValue = useAppSelector((state) => state.search.searchValue);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
   const [disabled, setDisabled] = useState({ prevDisabled: true, nextDisabled: false });
-  const lastPostIndex = currentPage * limit;
-  const firstPostIndex = lastPostIndex - limit;
-  const totalPages = Math.ceil(posts.length / limit);
-
+  const totalPages = Math.ceil(total / limit);
   useEffect(() => {
-    dispatch(getPagePosts());
+    dispatch(getPosts(searchValue, currentPage));
   }, []);
 
   useEffect(() => {
-    setCurrentPosts(posts.slice(firstPostIndex, lastPostIndex));
-  }, [currentPage, posts]);
+    if (posts.length < total) {
+      dispatch(getPosts(searchValue, currentPage));
+    }
+  }, [currentPage]);
 
   const onNext = () => {
     if (currentPage < totalPages) {
@@ -52,7 +51,7 @@ const Posts = () => {
     <div className={styles.posts__container}>
       <SearchLine />
       <div className={styles.posts}>
-        {currentPosts.map((post) => (
+        {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}
       </div>
