@@ -22,6 +22,7 @@ const EditPost = () => {
   const [inputValue, setInputValue] = useState({
     title: '',
     text: '',
+    description: '',
     photoUrl: '',
   });
   const currentPost = useAppSelector(currentPostSelector);
@@ -29,6 +30,12 @@ const EditPost = () => {
     if (id) {
       dispatch(getPost(id));
     }
+    setInputValue({
+      title: currentPost.title,
+      text: currentPost.text,
+      description: currentPost.description,
+      photoUrl: currentPost.photoUrl,
+    });
   }, [id]);
 
   const onChangeTitle = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -51,10 +58,23 @@ const EditPost = () => {
       photoUrl: url,
     });
   };
-
+  const onChangeDescr = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+    setInputValue({
+      ...inputValue,
+      description: e.currentTarget.value,
+    });
+  };
   const editPostClick = () => {
     if (id) {
-      dispatch(updatePost(inputValue.title, inputValue.text, inputValue.photoUrl, id));
+      dispatch(
+        updatePost(
+          inputValue.title,
+          inputValue.text,
+          inputValue.description,
+          inputValue.photoUrl,
+          id
+        )
+      );
       dispatch(getAllPosts());
     }
   };
@@ -75,15 +95,20 @@ const EditPost = () => {
             onChange={onChangeTitle}
             className={styles.editPost__titleInput}
             name="title"
-            value={inputValue.title}
+            value={currentPost.title}
             type="text"
-            placeholder={currentPost.title}
           />
           <div className={styles.editPost__inputContainer}>
             <label className={styles.editPost__label} htmlFor="shortDescr">
               Короткое описание
             </label>
-            <textarea className={styles.editPost__input} name="shortDescr" rows={5} />
+            <textarea
+              onChange={onChangeDescr}
+              value={inputValue.description}
+              className={styles.editPost__input}
+              name="shortDescr"
+              rows={5}
+            />
           </div>
           <UploadBar onChangeUrl={onChangeUrl} url={inputValue.photoUrl} />
           <div className={styles.editPost__inputContainer}>

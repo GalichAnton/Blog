@@ -12,6 +12,8 @@ export const postReducer = (state = initialState, action: postActions): IPostSta
       return { ...state, loading: true };
     case PostsActionTypes.CREATE_POST:
       return { ...state, posts: [action.payload, ...state.posts], loading: false };
+    case PostsActionTypes.GET_PAGE_POSTS:
+      return { ...state, posts: [...state.posts, ...action.payload] };
     case PostsActionTypes.GET_ALL_POSTS:
       return { ...state, posts: action.payload };
     case PostsActionTypes.GET_POST:

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './detailedPost.module.css';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
@@ -24,10 +24,12 @@ const DetailedPost = () => {
   const loading = useAppSelector((state) => state.posts.loading);
   const token = useAppSelector(tokenSelector);
   const currentPost = useAppSelector(currentPostSelector);
-  console.log(id);
+  const top = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (id) {
       dispatch(getPost(id));
+      window.scrollTo(0, 0);
+      console.log(process.env.REACT_APP_CONTENT_API_URL);
     }
     dispatch(getAllComments());
   }, [id]);
@@ -53,9 +55,24 @@ const DetailedPost = () => {
         <div className={styles.detailedPost__container}>
           <div
             className={styles.detailedPost__head}
-            style={{ background: 'url(' + currentPost.photoUrl + ')' }}
+            style={
+              !currentPost.photoUrl
+                ? { background: 'gray' }
+                : {
+                    background:
+                      'url(' +
+                      `${
+                        currentPost.photoUrl.startsWith('http')
+                          ? currentPost.photoUrl
+                          : `http://localhost:5656/${currentPost.photoUrl}`
+                      }` +
+                      ')',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                  }
+            }
           >
-            <div className={styles.detailedPost__info}>
+            <div ref={top} className={styles.detailedPost__info}>
               <div className={styles.detailedPost__data}>
                 {dateParser(currentPost.createdAt)}
               </div>

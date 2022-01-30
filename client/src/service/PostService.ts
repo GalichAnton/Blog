@@ -1,14 +1,18 @@
-import { $postsApi, $postsApiWithToken } from '../http/PostsApi';
 import { AxiosResponse } from 'axios';
 import { PostResponseType, PostsResponseType } from '../types/responseTypes/ResponseTypes';
+import { $contentApi } from '../http/ContentApi';
 
 export default class PostService {
   static async getAllPost(search = ''): Promise<AxiosResponse<PostsResponseType>> {
-    return $postsApi.get<PostsResponseType>(`/posts?query=${search}&limit=100`);
+    return $contentApi.get<PostsResponseType>(`/posts?query=${search}&limit=100`);
+  }
+
+  static async getPagePosts(): Promise<AxiosResponse<PostsResponseType>> {
+    return $contentApi.get<PostsResponseType>(`/posts`);
   }
 
   static async getPost(id: string): Promise<AxiosResponse<PostResponseType>> {
-    return $postsApi.get<PostResponseType>(`/posts/${id}`);
+    return $contentApi.get<PostResponseType>(`/posts/${id}`);
   }
 
   static async createPost(
@@ -16,32 +20,25 @@ export default class PostService {
     text: string,
     photoUrl?: string
   ): Promise<AxiosResponse<PostResponseType>> {
-    return $postsApi.post<PostResponseType>(
-      `/posts/`,
-      { title, text, photoUrl },
-      {
-        headers: {
-          Authorization: localStorage.getItem('token') || '',
-        },
-      }
-    );
+    return $contentApi.post<PostResponseType>(`/posts/`, { title, text, photoUrl });
   }
 
   static async deletePost(id: string): Promise<void> {
-    return $postsApiWithToken.delete(`/posts/${id}`);
+    return $contentApi.delete(`/posts/${id}`);
   }
 
   static async updatePost(
     title: string,
     text: string,
+    description: string,
     photoUrl: string,
     id: string
   ): Promise<AxiosResponse<PostResponseType>> {
-    return $postsApiWithToken.patch<PostResponseType>(`/posts/${id}`, {
+    return $contentApi.patch<PostResponseType>(`/posts/${id}`, {
       title,
       text,
+      description,
       photoUrl,
-      id,
     });
   }
 }

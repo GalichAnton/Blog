@@ -32,12 +32,16 @@ const Post: FC<IProps> = ({ post }) => {
               ) : null}
             </object>
           </h3>
-          <p className={styles.post__descr}>{post.text}</p>
+          <p className={styles.post__descr}>{post.description}</p>
         </div>
         {post.photoUrl && (
           <img
             className={styles.post__img}
-            src={`http://localhost:5656/${post.photoUrl}`}
+            src={
+              post.photoUrl.startsWith('http')
+                ? post.photoUrl
+                : `http://localhost:5656/${post.photoUrl}`
+            }
             alt="test"
           />
         )}

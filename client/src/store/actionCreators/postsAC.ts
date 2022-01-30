@@ -17,6 +17,21 @@ export const getAllPosts = (search = '') => {
   };
 };
 
+export const getPagePosts = () => {
+  return async (dispatch: Dispatch<postActions>) => {
+    try {
+      const { data } = await PostService.getPagePosts();
+      console.log(data);
+      dispatch({
+        type: PostsActionTypes.GET_PAGE_POSTS,
+        payload: data.items,
+      });
+    } catch (e: any) {
+      console.log(e.response.data.error);
+    }
+  };
+};
+
 export const getPost = (id: string) => {
   return async (dispatch: Dispatch<postActions>) => {
     try {
@@ -64,10 +79,16 @@ export const deletePost = (id: string) => {
   };
 };
 
-export const updatePost = (title: string, text: string, photoUrl: string, id: string) => {
+export const updatePost = (
+  title: string,
+  text: string,
+  description: string,
+  photoUrl: string,
+  id: string
+) => {
   return async (dispatch: Dispatch<postActions>) => {
     try {
-      const response = await PostService.updatePost(title, text, photoUrl, id);
+      const response = await PostService.updatePost(title, text, description, photoUrl, id);
       console.log(response.data);
       dispatch({
         type: PostsActionTypes.UPDATE_POST,

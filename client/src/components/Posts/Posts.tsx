@@ -3,7 +3,7 @@ import SearchLine from '../SearchLine/SearchLine';
 import styles from './posts.module.css';
 import Post from '../Post/Post';
 import { useDispatch } from 'react-redux';
-import { getAllPosts } from '../../store/actionCreators/postsAC';
+import { getPagePosts } from '../../store/actionCreators/postsAC';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import cn from 'classnames';
 import { IPost } from '../../types/postsTypes';
@@ -21,7 +21,7 @@ const Posts = () => {
   const totalPages = Math.ceil(posts.length / limit);
 
   useEffect(() => {
-    dispatch(getAllPosts());
+    dispatch(getPagePosts());
   }, []);
 
   useEffect(() => {

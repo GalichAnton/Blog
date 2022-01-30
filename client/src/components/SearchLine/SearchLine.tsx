@@ -23,8 +23,10 @@ const SearchLine = () => {
     dispatch(setModalActive());
   };
   const logoutHandler = () => {
-    dispatch(removeUser());
-    localStorage.clear();
+    if (confirm('Вы действительно хотите выйти?')) {
+      dispatch(removeUser());
+      localStorage.clear();
+    }
   };
 
   const onChangeHandler = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -40,7 +42,9 @@ const SearchLine = () => {
 
   return (
     <div className={styles.container}>
-      <h4 className={styles.title}>VASYA BLOG</h4>
+      <Link to={'/'}>
+        <h4 className={styles.title}>VASYA BLOG</h4>
+      </Link>
       <div
         className={cn(styles.search, {
           [styles.search_open]: inputOpen,
