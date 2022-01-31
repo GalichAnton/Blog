@@ -32,7 +32,7 @@ module.exports.create = async (req, res) => {
   } else {
     const comment = new Comment(data);
     try {
-      const result = await comment.save();
+      const result = await comment.save().then((doc) => doc.populate('user'));
       if (result) {
         return res.status(201).json(result);
       }

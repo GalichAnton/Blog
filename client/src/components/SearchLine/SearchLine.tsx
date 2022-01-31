@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { removeUser } from '../../store/actionCreators/userAC';
 import { Link } from 'react-router-dom';
 import { tokenSelector } from '../../store/Selectors/Selectors';
-import { getAllPosts } from '../../store/actionCreators/postsAC';
+import { getPosts } from '../../store/actionCreators/postsAC';
 import { setSearchValue } from '../../store/actionCreators/searchAC';
 
 const SearchLine = () => {
@@ -23,8 +23,10 @@ const SearchLine = () => {
     dispatch(setModalActive());
   };
   const logoutHandler = () => {
-    dispatch(removeUser());
-    localStorage.clear();
+    if (confirm('Вы действительно хотите выйти?')) {
+      dispatch(removeUser());
+      localStorage.clear();
+    }
   };
 
   const onChangeHandler = (e: SyntheticEvent<HTMLInputElement>) => {
@@ -33,14 +35,16 @@ const SearchLine = () => {
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      dispatch(getAllPosts(searchValue));
+      dispatch(getPosts(searchValue));
       dispatch(setSearchValue(''));
     }
   };
 
   return (
     <div className={styles.container}>
-      <h4 className={styles.title}>VASYA BLOG</h4>
+      <Link to={'/'}>
+        <h4 className={styles.title}>VASYA BLOG</h4>
+      </Link>
       <div
         className={cn(styles.search, {
           [styles.search_open]: inputOpen,

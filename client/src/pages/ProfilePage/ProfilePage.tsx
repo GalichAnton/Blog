@@ -8,22 +8,23 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Comment from '../../components/Comment/Comment';
 import { getAllComments } from '../../store/actionCreators/commentAC';
-import { userCommentsSelector, userPostsSelector } from '../../store/Selectors/Selectors';
+import { postsSelector, userCommentsSelector } from '../../store/Selectors/Selectors';
+import { getPosts } from '../../store/actionCreators/postsAC';
+import { dateParser } from '../../utils/DateParser';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const user = useAppSelector((state) => state.user.user);
 
-  const userPosts = useAppSelector(userPostsSelector);
+  const posts = useAppSelector(postsSelector);
   const userComments = useAppSelector(userCommentsSelector);
 
   const [activeTab, setActiveTab] = useState<string>('posts');
 
   useEffect(() => {
+    dispatch(getPosts('', 1, user._id));
     dispatch(getAllComments());
   }, []);
-
-  console.log(userPosts);
 
   const onPostTabClick = () => {
     setActiveTab('posts');
@@ -43,16 +44,7 @@ const ProfilePage = () => {
             <h1 className={styles.profile__name}>{user?.fullName}</h1>
             <h3 className={styles.profile__date}>
               Дата регистрации:
-              <b>
-                {user &&
-                  new Date(user.createdAt).toLocaleTimeString(navigator.language, {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-              </b>
+              <b>{user && dateParser(user.createdAt)}</b>
             </h3>
           </div>
           <div className={styles.profile__tabs}>
@@ -75,7 +67,7 @@ const ProfilePage = () => {
           </div>
           {activeTab === 'posts' && (
             <div className={styles.profile__posts}>
-              {userPosts.map((post) => (
+              {posts.map((post) => (
                 <Post key={post._id} post={post} />
               ))}
             </div>

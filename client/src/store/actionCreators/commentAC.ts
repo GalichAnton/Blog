@@ -6,7 +6,6 @@ export const getAllComments = () => {
   return async (dispatch: Dispatch<commentsActions>) => {
     try {
       const { data } = await CommentService.getAllComments();
-      console.log(data);
       dispatch({
         type: CommentsActionTypes.GET_ALL_COMMENTS,
         payload: data.items,
@@ -20,8 +19,8 @@ export const getAllComments = () => {
 export const createComment = (text: string, postId: string) => {
   return async (dispatch: Dispatch<commentsActions>) => {
     try {
+      dispatch({ type: CommentsActionTypes.FETCHING_COMENT });
       const { data } = await CommentService.createComment(text, postId);
-      console.log(data);
       dispatch({
         type: CommentsActionTypes.CREATE_COMMENT,
         payload: data,

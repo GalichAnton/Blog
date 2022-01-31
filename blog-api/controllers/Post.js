@@ -7,7 +7,8 @@ const {entityPaginate} = require("../utils/entityPaginate");
 const checkPostBody = Joi.object({
   title: Joi.string().required().min(3).max(256),
   text: Joi.string().required().min(3).max(65536),
-  photoUrl: Joi.string().min(3).max(100),
+  description: Joi.string().required().min(3).max(400),
+  photoUrl: Joi.string().min(3).max(300),
   user: Joi.string().required().length(24),
 });
 
@@ -22,10 +23,11 @@ module.exports.all = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const {title, text, photoUrl} = req.body;
+  const {title, text, photoUrl, description } = req.body;
   const data = {
     title,
     text,
+    description,
     photoUrl,
     user: req.userId,
   };
@@ -94,10 +96,11 @@ module.exports.update = async (req, res) => {
   if (!validator.isMongoId(id)) {
     res.status(400).json({error: "Неверный ID записи"});
   } else {
-    const {title, text, photoUrl} = req.body;
+    const {title, text, photoUrl,description} = req.body;
     const data = {
       title,
       text,
+      description,
       photoUrl,
       user: req.userId,
     };
@@ -110,7 +113,7 @@ module.exports.update = async (req, res) => {
         if (result) {
           return res.status(202).json();
         }
-        return res.status(404).json({error: "123Такой записи нет в базе"});
+        return res.status(404).json({error: "Такой записи нет в базе"});
       } catch (err) {
         console.log(err);
         return res.status(500).json({error: "Произошла серверная ошибка"});

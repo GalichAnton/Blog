@@ -1,18 +1,13 @@
+import { IUser } from './userTypes';
+
 const Post = {
   _id: '61ca0e10d06b1ed9a357aaa7',
   title: 'Заголовок',
   text: 'Текст статьи',
+  description: '',
   views: 0,
   photoUrl: '',
-  user: {
-    _id: '61c773aa09ab4d6ab0083a8a',
-    fullName: 'Vasya Pupkin',
-    email: 'test@test.ru',
-    password: '$2a$10$UAPiq71TugHuDZ9AGZBfDOI.iatuVmArDpSqoE51RDQm2BhfYGt1m',
-    createdAt: '2021-12-25T19:40:26.074Z',
-    updatedAt: '2021-12-25T19:40:26.074Z',
-    __v: 0,
-  },
+  user: {} as IUser,
   createdAt: '2021-12-27T19:03:44.876Z',
   updatedAt: '2021-12-27T19:31:59.093Z',
   __v: 0,
@@ -24,15 +19,18 @@ export interface IPostState {
   posts: IPost[];
   currentPost: IPost;
   loading: boolean;
+  total: number;
+  error: string;
 }
 
 export enum PostsActionTypes {
   FETCH_POST = 'FETCH_POST',
   CREATE_POST = 'CREATE_POST',
-  GET_ALL_POSTS = 'GET_ALL_POSTS',
+  GET_PAGE_POSTS = 'GET_PAGE_POSTS',
   GET_POST = 'GET_POST',
   DELETE_POST = 'DELETE_POST',
   UPDATE_POST = 'UPDATE_POST',
+  SET_ERROR = 'SET_ERROR',
 }
 
 interface IPostsActionCreate {
@@ -40,9 +38,9 @@ interface IPostsActionCreate {
   payload: IPost;
 }
 
-interface IPostActionGetAll {
-  type: PostsActionTypes.GET_ALL_POSTS;
-  payload: IPost[];
+interface IPagePostGet {
+  type: PostsActionTypes.GET_PAGE_POSTS;
+  payload: { posts: IPost[]; total: number };
 }
 
 interface IPostActionGet {
@@ -64,10 +62,15 @@ interface IPostUpdate {
   payload: IPost;
 }
 
+interface IPostSetError {
+  type: PostsActionTypes.SET_ERROR;
+  payload: string;
+}
 export type postActions =
   | IPostsActionCreate
-  | IPostActionGetAll
   | IPostActionGet
   | IPostActionFetch
   | IPostDelete
-  | IPostUpdate;
+  | IPostUpdate
+  | IPagePostGet
+  | IPostSetError;

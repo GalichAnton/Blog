@@ -21,27 +21,30 @@ const Post: FC<IProps> = ({ post }) => {
       }
     >
       <div className={styles.post__top}>
-        <div className={styles.post__text}>
-          <h3 className={styles.post__title}>
-            {post.title}
-            <object>
-              {isOwner ? (
-                <NavLink to={`/editPage/${post._id}`}>
-                  <img src="/img/edit.svg" alt="edit" />
-                </NavLink>
-              ) : null}
-            </object>
-          </h3>
-          <p className={styles.post__descr}>{post.text}</p>
-        </div>
+        <h3 className={styles.post__title}>
+          {post.title}
+          <object>
+            {isOwner ? (
+              <NavLink to={`/editPage/${post._id}`}>
+                <img src="/img/edit.svg" alt="edit" />
+              </NavLink>
+            ) : null}
+          </object>
+        </h3>
+
         {post.photoUrl && (
           <img
             className={styles.post__img}
-            src={`http://localhost:5656/${post.photoUrl}`}
+            src={
+              post.photoUrl.startsWith('http')
+                ? post.photoUrl
+                : `http://localhost:5656/${post.photoUrl}`
+            }
             alt="test"
           />
         )}
       </div>
+      <p className={styles.post__descr}>{post.description}</p>
       <div className={styles.post__info}>
         <div className={styles.post__data}>{dateParser(post.createdAt)}</div>
         <div className={styles.post__views}>

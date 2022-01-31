@@ -4,9 +4,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+a{
+  text-decoration: none;
+}
 :root{
   --light-grey: #AAAAAA;
   --main-color:#080B0E;
+}
+
+html{
+  scroll-behavior: smooth;
 }
 
 @keyframes loading {

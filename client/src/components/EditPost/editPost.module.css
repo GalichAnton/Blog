@@ -77,3 +77,11 @@
   width: 20%;
 }
 
+.editPost_loading{
+  animation: loading 2s ease-in-out infinite;
+}
+
+.editPost_error{
+  color: red;
+  margin-right: 20px;
+}
