@@ -15,6 +15,7 @@ import {
 import { SimpleMdeReact } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { dateParser } from '../../utils/DateParser';
+import cn from 'classnames';
 
 const DetailedPost = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const DetailedPost = () => {
   const [comment, setComment] = useState<string>('');
   const postComments = useAppSelector(postCommentsSelector);
   const loading = useAppSelector((state) => state.posts.loading);
+  const commentsLoad = useAppSelector((state) => state.comments.loading);
   const token = useAppSelector(tokenSelector);
   const currentPost = useAppSelector(currentPostSelector);
   const top = useRef<HTMLDivElement>(null);
@@ -94,18 +96,23 @@ const DetailedPost = () => {
               ))}
             </div>
 
-            {token ? (
+            {
               <div className={styles.detailedPost__addComment}>
                 <h4 className={styles.detailedPost__addComment_title}>Добавить комментарий</h4>
                 <SimpleMdeReact value={comment} onChange={onChangeComment} />
-                <button
-                  onClick={() => id && sendComment(comment, id)}
-                  className={styles.detailedPost__addComment_btn}
-                >
-                  Отправить
-                </button>
+                <div className={styles.detailedPost_bottom}>
+                  <button
+                    type={'button'}
+                    onClick={() => id && sendComment(comment, id)}
+                    className={cn(styles.detailedPost__addComment_btn, {
+                      [styles.detailedPost_loading]: commentsLoad,
+                    })}
+                  >
+                    {!commentsLoad ? 'Отправить' : 'Сохранение...'}
+                  </button>
+                </div>
               </div>
-            ) : null}
+            }
           </div>
         </div>
       )}

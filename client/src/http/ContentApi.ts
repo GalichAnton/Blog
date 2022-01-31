@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { IUserState } from '../types/userTypes';
 
 export const $contentApi = axios.create({
   baseURL: process.env.REACT_APP_CONTENT_API_URL,
@@ -6,9 +7,11 @@ export const $contentApi = axios.create({
 
 $contentApi.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const token = localStorage.getItem('token');
+    const user: IUserState = JSON.parse(localStorage.getItem('user')!);
+    const token = user.user.token;
+    console.log(token);
     if (token) {
-      config.headers!['Authorization'] = `Bearer ${token}`;
+      config.headers!['Authorization'] = `${token}`;
     }
     config.headers!['Content-Type'] = 'application/json';
     return config;

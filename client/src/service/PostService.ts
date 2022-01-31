@@ -20,9 +20,15 @@ export default class PostService {
   static async createPost(
     title: string,
     text: string,
-    photoUrl?: string
+    description: string,
+    photoUrl: string
   ): Promise<AxiosResponse<PostResponseType>> {
-    return $contentApi.post<PostResponseType>(`/posts/`, { title, text, photoUrl });
+    return $contentApi.post<PostResponseType>(`/posts/`, {
+      title,
+      text,
+      description,
+      photoUrl,
+    });
   }
 
   static async deletePost(id: string): Promise<void> {

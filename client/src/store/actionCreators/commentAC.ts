@@ -19,8 +19,8 @@ export const getAllComments = () => {
 export const createComment = (text: string, postId: string) => {
   return async (dispatch: Dispatch<commentsActions>) => {
     try {
+      dispatch({ type: CommentsActionTypes.FETCHING_COMENT });
       const { data } = await CommentService.createComment(text, postId);
-      console.log(data);
       dispatch({
         type: CommentsActionTypes.CREATE_COMMENT,
         payload: data,

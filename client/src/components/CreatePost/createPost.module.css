@@ -9,7 +9,7 @@
   font-weight: 800;
   font-size: 42px;
   line-height: 52px;
-  color: #D7D7D7;
+  color: #000;
   margin-bottom: 25px;
 }
 .createPost__inputContainer{
@@ -53,11 +53,32 @@
 .createPost_loading{
   animation: loading 2s ease-in-out infinite;
 }
-
+@keyframes loading {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #666;
+  }
+  100% {
+    color: #fff;
+  }
+}
 .input__wrapper {
   width: 70%;
   position: relative;
   text-align: center;
   margin-left: 15px;
+}
+
+.createPost_bottom{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.createPost_error{
+  color: red;
+  margin-right: 20px;
 }
 

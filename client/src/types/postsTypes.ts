@@ -20,16 +20,17 @@ export interface IPostState {
   currentPost: IPost;
   loading: boolean;
   total: number;
+  error: string;
 }
 
 export enum PostsActionTypes {
   FETCH_POST = 'FETCH_POST',
   CREATE_POST = 'CREATE_POST',
-  GET_ALL_POSTS = 'GET_ALL_POSTS',
   GET_PAGE_POSTS = 'GET_PAGE_POSTS',
   GET_POST = 'GET_POST',
   DELETE_POST = 'DELETE_POST',
   UPDATE_POST = 'UPDATE_POST',
+  SET_ERROR = 'SET_ERROR',
 }
 
 interface IPostsActionCreate {
@@ -61,10 +62,15 @@ interface IPostUpdate {
   payload: IPost;
 }
 
+interface IPostSetError {
+  type: PostsActionTypes.SET_ERROR;
+  payload: string;
+}
 export type postActions =
   | IPostsActionCreate
   | IPostActionGet
   | IPostActionFetch
   | IPostDelete
   | IPostUpdate
-  | IPagePostGet;
+  | IPagePostGet
+  | IPostSetError;

@@ -3,17 +3,20 @@ import styles from './editPost.module.css';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { currentPostSelector } from '../../store/Selectors/Selectors';
-import { deletePost, getPost, getPosts, updatePost } from '../../store/actionCreators/postsAC';
+import { deletePost, getPost, updatePost } from '../../store/actionCreators/postsAC';
 import { SimpleMdeReact } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import MyLoader from '../Skeleton/Loader';
 import UploadBar from '../UploadBar/UploadBar';
+import cn from 'classnames';
 
 const EditPost = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
   const loading = useAppSelector((state) => state.posts.loading);
+  const error = useAppSelector((state) => state.posts.error);
   const [inputValue, setInputValue] = useState({
     title: '',
     text: '',
@@ -59,9 +62,9 @@ const EditPost = () => {
       description: e.currentTarget.value,
     });
   };
-  const editPostClick = () => {
+  const editPostClick = async () => {
     if (id) {
-      dispatch(
+      await dispatch(
         updatePost(
           inputValue.title,
           inputValue.text,
@@ -70,13 +73,17 @@ const EditPost = () => {
           id
         )
       );
-      dispatch(getPosts());
+    }
+    if (!error) {
+      alert('Пост успешно обновлен!');
+      await navigate('/');
     }
   };
 
-  const deletePostClick = () => {
-    if (id) {
-      dispatch(deletePost(id));
+  const deletePostClick = async () => {
+    if (confirm('Вы действитнльно хотите удалить статью?')) {
+      id && (await dispatch(deletePost(id)));
+      !error && (await navigate('/'));
     }
   };
 
@@ -114,14 +121,37 @@ const EditPost = () => {
               onChange={onChangeText}
               value={currentPost.text}
               className={styles.editPost__input}
+              options={{ spellChecker: false, autofocus: true, minHeight: '250px' }}
             />
           </div>
           <div className={styles.editPost__btns}>
-            <button onClick={deletePostClick} className={styles.editPost__delete}>
-              Удалить
+            <button
+              onClick={deletePostClick}
+              className={cn(styles.editPost__delete, {
+                [styles.editPost_loading]: loading,
+              })}
+            >
+              {error ? (
+                <h2 className={styles.editPost_error}>{error}</h2>
+              ) : !loading ? (
+                'Удалить'
+              ) : (
+                'Удаление...'
+              )}
             </button>
-            <button onClick={editPostClick} className={styles.editPost__save}>
-              Сохранить
+            <button
+              onClick={editPostClick}
+              className={cn(styles.editPost__save, {
+                [styles.editPost_loading]: loading,
+              })}
+            >
+              {error ? (
+                <h2 className={styles.editPost_error}>{error}</h2>
+              ) : !loading ? (
+                'Сохранить'
+              ) : (
+                'Сохранение...'
+              )}
             </button>
           </div>
         </div>

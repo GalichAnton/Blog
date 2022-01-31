@@ -14,9 +14,12 @@ export type IComment = typeof Comment;
 
 export interface ICommentState {
   comments: IComment[];
+  loading: boolean;
+  error: string;
 }
 
 export enum CommentsActionTypes {
+  FETCHING_COMENT = 'FETCHING_COMENT',
   CREATE_COMMENT = 'CREATE_COMMENT',
   GET_ALL_COMMENTS = 'GET_ALL_COMMENTS',
 }
@@ -31,4 +34,8 @@ interface ICommentsActionGetAll {
   payload: IComment[];
 }
 
-export type commentsActions = ICommentActionCreate | ICommentsActionGetAll;
+interface ICommentFetching {
+  type: CommentsActionTypes.FETCHING_COMENT;
+}
+
+export type commentsActions = ICommentActionCreate | ICommentsActionGetAll | ICommentFetching;

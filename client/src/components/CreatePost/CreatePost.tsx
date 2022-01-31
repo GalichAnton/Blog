@@ -6,17 +6,17 @@ import { SimpleMdeReact } from 'react-simplemde-editor';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import UploadBar from '../UploadBar/UploadBar';
-
 const CreatePost = () => {
   const dispatch = useDispatch();
   const loading = useAppSelector((state) => state.posts.loading);
+  const error = useAppSelector((state) => state.posts.error);
 
   const [inputValue, setInputValue] = useState({
     title: '',
     text: '',
+    description: '',
     photoUrl: '',
   });
-
   const onChangeText = (value: string) => {
     setInputValue({
       ...inputValue,
@@ -35,11 +35,18 @@ const CreatePost = () => {
       photoUrl: url,
     });
   };
-  const createPostClick = () => {
-    if (inputValue.photoUrl) {
-      dispatch(createPost(inputValue.title, inputValue.text, inputValue.photoUrl));
-    }
-    dispatch(createPost(inputValue.title, inputValue.text));
+
+  const onChangeDescr = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+    setInputValue({
+      ...inputValue,
+      description: e.currentTarget.value,
+    });
+  };
+
+  const createPostClick = async () => {
+    await dispatch(
+      createPost(inputValue.title, inputValue.text, inputValue.description, inputValue.photoUrl)
+    );
   };
 
   return (
@@ -56,7 +63,13 @@ const CreatePost = () => {
         <label className={styles.createPost__label} htmlFor="shortDescr">
           Короткое описание
         </label>
-        <textarea className={styles.createPost__input} name="shortDescr" rows={5} />
+        <textarea
+          onChange={onChangeDescr}
+          value={inputValue.description}
+          className={styles.createPost__input}
+          name="shortDescr"
+          rows={5}
+        />
       </div>
       <UploadBar onChangeUrl={onChangeUrl} url={inputValue.photoUrl} />
       <div className={styles.createPost__inputContainer}>
@@ -69,14 +82,17 @@ const CreatePost = () => {
           className={styles.editPost__input}
         />
       </div>
-      <button
-        onClick={createPostClick}
-        className={cn(styles.createPost__btn, {
-          [styles.createPost_loading]: loading,
-        })}
-      >
-        {!loading ? 'Опубликовать' : 'Подожтите...'}
-      </button>
+      <div className={styles.createPost_bottom}>
+        {error ? <h2 className={styles.createPost_error}>{error}</h2> : null}
+        <button
+          onClick={createPostClick}
+          className={cn(styles.createPost__btn, {
+            [styles.createPost_loading]: loading,
+          })}
+        >
+          {!loading ? 'Опубликовать' : 'Подожтите...'}
+        </button>
+      </div>
     </div>
   );
 };

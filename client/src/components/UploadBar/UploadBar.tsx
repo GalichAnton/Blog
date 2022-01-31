@@ -21,11 +21,11 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
       onChangeUrl(fileList[0]?.name);
     } else alert('Вы не выбрали файл');
   };
-  const onUpload = async () => {
+  const onUpload = () => {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-      await dispatch(getPhotoUrl(formData));
+      dispatch(getPhotoUrl(formData));
       onChangeUrl(photoUrl);
     }
   };
@@ -37,7 +37,7 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
       </label>
       <div className={styles.uploadBar__imgUpload}>
         <input
-          onChange={(e) => onChangeUrl(e.currentTarget.value)}
+          onChange={(e) => onChangeUrl(e ? e.currentTarget.value : photoUrl)}
           value={url}
           className={cn(styles.uploadBar__input, styles.uploadBar__inputImg)}
           name="url"
@@ -53,8 +53,12 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
             multiple
           />
           <label htmlFor="input__file" className={styles.input__fileButton}>
-            <span className={styles.input__fileButtonText}>
-              <button className={styles.input__btnUpload} onClick={onUpload}>
+            <span
+              className={cn(styles.input__fileButtonText, {
+                [styles.input_loading]: loading,
+              })}
+            >
+              <button className={cn(styles.input__btnUpload)} onClick={onUpload}>
                 <img
                   className={styles.input__fileIcon}
                   src="/img/add.svg"
