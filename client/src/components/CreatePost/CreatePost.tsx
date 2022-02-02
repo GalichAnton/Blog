@@ -1,8 +1,9 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useMemo, useState } from 'react';
 import styles from './createPost.module.css';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../store/actionCreators/postsAC';
-import { SimpleMdeReact } from 'react-simplemde-editor';
+import SimpleMdeReact from 'react-simplemde-editor';
+import SimpleMDE from 'easymde';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import UploadBar from '../UploadBar/UploadBar';
@@ -48,7 +49,12 @@ const CreatePost = () => {
       createPost(inputValue.title, inputValue.text, inputValue.description, inputValue.photoUrl)
     );
   };
-
+  const autofocusNoSpellcheckerOptions = useMemo(() => {
+    return {
+      autofocus: true,
+      spellChecker: false,
+    } as SimpleMDE.Options;
+  }, []);
   return (
     <div className={styles.createPost__container}>
       <input
@@ -80,6 +86,7 @@ const CreatePost = () => {
           onChange={onChangeText}
           value={inputValue.text}
           className={styles.editPost__input}
+          options={autofocusNoSpellcheckerOptions}
         />
       </div>
       <div className={styles.createPost_bottom}>

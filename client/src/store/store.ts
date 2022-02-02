@@ -21,11 +21,9 @@ const loadState = (): RootState | undefined => {
   try {
     // Load the data saved in localStorage, against the key 'app_state'
     const serialisedUserState = window.localStorage.getItem('user');
-    console.log(serialisedUserState);
     // If no data is saved, return undefined
     if (serialisedUserState) {
       state.user = JSON.parse(serialisedUserState);
-      console.log(serialisedUserState);
     } else {
       return undefined;
     }

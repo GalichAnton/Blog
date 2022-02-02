@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 import styles from './uploadBar.module.css';
 import cn from 'classnames';
 import { getPhotoUrl } from '../../store/actionCreators/photoAC';
@@ -13,23 +13,17 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
   const dispatch = useDispatch();
   const photoUrl = useAppSelector((state) => state.photo.url);
   const loading = useAppSelector((state) => state.photo.loading);
-  const [file, setFile] = useState<File>();
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
-      setFile(fileList[0]);
-      onChangeUrl(fileList[0]?.name);
+      const formData = new FormData();
+      formData.append('file', fileList[0]);
+      dispatch(getPhotoUrl(formData));
     } else alert('Вы не выбрали файл');
   };
-  const onUpload = () => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      dispatch(getPhotoUrl(formData));
-      onChangeUrl(photoUrl);
-    }
-  };
-
+  useEffect(() => {
+    onChangeUrl(photoUrl);
+  }, [photoUrl]);
   return (
     <div className={styles.uploadBar__inputContainer}>
       <label className={styles.uploadBar__label} htmlFor="url">
@@ -52,22 +46,13 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
             className={cn(styles.input, styles.input__file)}
             multiple
           />
-          <label htmlFor="input__file" className={styles.input__fileButton}>
-            <span
-              className={cn(styles.input__fileButtonText, {
-                [styles.input_loading]: loading,
-              })}
-            >
-              <button className={cn(styles.input__btnUpload)} onClick={onUpload}>
-                <img
-                  className={styles.input__fileIcon}
-                  src="/img/add.svg"
-                  alt="Выбрать файл"
-                  width="25"
-                />
-              </button>
-              {!loading ? 'Выберите файл' : 'Подождите'}
-            </span>
+          <label
+            htmlFor="input__file"
+            className={cn(styles.input__fileButton, {
+              [styles.input_loading]: loading,
+            })}
+          >
+            {!loading ? 'Выберите файл' : 'Подождите'}
           </label>
         </div>
       </div>

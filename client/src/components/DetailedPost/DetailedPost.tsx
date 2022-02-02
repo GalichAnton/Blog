@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './detailedPost.module.css';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
@@ -16,6 +16,7 @@ import { SimpleMdeReact } from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { dateParser } from '../../utils/DateParser';
 import cn from 'classnames';
+import SimpleMDE from 'easymde';
 
 const DetailedPost = () => {
   const { id } = useParams();
@@ -48,6 +49,13 @@ const DetailedPost = () => {
     }
   };
 
+  const autofocusNoSpellcheckerOptions = useMemo(() => {
+    return {
+      autofocus: true,
+      spellChecker: false,
+    } as SimpleMDE.Options;
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -65,7 +73,7 @@ const DetailedPost = () => {
                       `${
                         currentPost.photoUrl.startsWith('http')
                           ? currentPost.photoUrl
-                          : `http://localhost:5656/${currentPost.photoUrl}`
+                          : `${process.env.REACT_APP_CONTENT_API_URL}${currentPost.photoUrl}`
                       }` +
                       ')',
                     backgroundRepeat: 'no-repeat',
@@ -99,7 +107,11 @@ const DetailedPost = () => {
             {
               <div className={styles.detailedPost__addComment}>
                 <h4 className={styles.detailedPost__addComment_title}>Добавить комментарий</h4>
-                <SimpleMdeReact value={comment} onChange={onChangeComment} />
+                <SimpleMdeReact
+                  options={autofocusNoSpellcheckerOptions}
+                  value={comment}
+                  onChange={onChangeComment}
+                />
                 <div className={styles.detailedPost_bottom}>
                   <button
                     type={'button'}
