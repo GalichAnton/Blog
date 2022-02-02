@@ -8,21 +8,21 @@
   line-height: 18px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #C1C1C1;
+  color: #0A3465;
 }
 
 .detailedPost__title{
   font-weight: 800;
   font-size: 42px;
   line-height: 52px;
-  color: #FFFFFF;
+  color: #0A3465;
   margin-bottom: 20px;
 }
 
 .detailedPost__subtitle{
   font-size: 16px;
   line-height: 24px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #0A3465;
 }
 
 .detailedPost__body{
@@ -43,7 +43,7 @@
  margin-right: 15px;
 }
 .detailedPost__views{
-  color: #C1C1C1;
+  color: #0A3465;
   margin-left: 15px;
 }
 

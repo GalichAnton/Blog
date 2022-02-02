@@ -26,7 +26,7 @@ export interface IPostState {
 export enum PostsActionTypes {
   FETCH_POST = 'FETCH_POST',
   CREATE_POST = 'CREATE_POST',
-  GET_PAGE_POSTS = 'GET_PAGE_POSTS',
+  GET_POSTS = 'GET_PAGE_POSTS',
   GET_POST = 'GET_POST',
   DELETE_POST = 'DELETE_POST',
   UPDATE_POST = 'UPDATE_POST',
@@ -39,7 +39,7 @@ interface IPostsActionCreate {
 }
 
 interface IPagePostGet {
-  type: PostsActionTypes.GET_PAGE_POSTS;
+  type: PostsActionTypes.GET_POSTS;
   payload: { posts: IPost[]; total: number };
 }
 

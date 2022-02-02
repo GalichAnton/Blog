@@ -26,7 +26,7 @@ const Post: FC<IProps> = ({ post }) => {
           <object>
             {isOwner ? (
               <NavLink to={`/editPage/${post._id}`}>
-                <img src="/img/edit.svg" alt="edit" />
+                <img src="/img/edit.svg" alt="edit" className={styles.post__edit} />
               </NavLink>
             ) : null}
           </object>
@@ -38,7 +38,7 @@ const Post: FC<IProps> = ({ post }) => {
             src={
               post.photoUrl.startsWith('http')
                 ? post.photoUrl
-                : `http://localhost:5656/${post.photoUrl}`
+                : `${process.env.REACT_APP_CONTENT_API_URL}${post.photoUrl}`
             }
             alt="test"
           />

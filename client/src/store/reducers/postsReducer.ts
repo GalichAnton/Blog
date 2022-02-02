@@ -14,11 +14,12 @@ export const postReducer = (state = initialState, action: postActions): IPostSta
       return { ...state, loading: true };
     case PostsActionTypes.CREATE_POST:
       return { ...state, posts: [action.payload, ...state.posts], loading: false, error: '' };
-    case PostsActionTypes.GET_PAGE_POSTS:
+    case PostsActionTypes.GET_POSTS:
       return {
         ...state,
         posts: action.payload.posts,
         total: action.payload.total,
+        loading: false,
       };
     case PostsActionTypes.GET_POST:
       return { ...state, currentPost: action.payload, loading: false, error: '' };
