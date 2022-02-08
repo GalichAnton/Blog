@@ -6,7 +6,7 @@
   flex-direction: column;
   text-decoration: none;
   color: #080B0E;
-  min-height: 250px;
+  height: 300px;
   margin: 10px 0;
 }
 .container_active{
@@ -16,19 +16,20 @@
 .post__top{
   display: flex;
   padding-right: 20px;
+  margin-bottom: 10px;
 }
 .post__text{
   flex: 1;
 }
 .post__title{
   flex: 1;
-  font-family: Nunito,sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  font-family: 'Nunito',sans-serif;
   font-weight: 800;
   font-size: 24px;
   line-height: 30px;
-  margin-bottom: 10px;
   text-decoration: none;
-  display: inline-block;
 }
 
 .post__descr{
@@ -67,5 +68,5 @@
 }
 
 .post__edit{
-  margin-left: 20px;
+  margin: 0 20px;
 }
