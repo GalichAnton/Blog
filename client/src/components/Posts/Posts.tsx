@@ -8,6 +8,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import cn from 'classnames';
 import { postsSelector } from '../../store/Selectors/Selectors';
 import Spinner from '../Skeleton/Spinner';
+import { useSearchParams } from 'react-router-dom';
 
 const Posts = () => {
   const limit = 5;
@@ -18,8 +19,10 @@ const Posts = () => {
   const loading = useAppSelector((state) => state.posts.loading);
   const [currentPage, setCurrentPage] = useState(1);
   const [disabled, setDisabled] = useState({ prevDisabled: true, nextDisabled: false });
+  const [searchParams, setSearchParams] = useSearchParams();
   const totalPages = Math.ceil(total / limit);
   useEffect(() => {
+    const searchValue = searchParams.get('searchValue') || '';
     dispatch(getPosts(searchValue, currentPage));
   }, []);
 
@@ -28,7 +31,11 @@ const Posts = () => {
       dispatch(getPosts(searchValue, currentPage));
     }
   }, [currentPage]);
-
+  useEffect(() => {
+    if (searchValue) {
+      setSearchParams({ searchValue });
+    }
+  }, [searchValue]);
   const onNext = () => {
     if (currentPage < totalPages) {
       console.log(currentPage);

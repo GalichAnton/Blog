@@ -31,7 +31,7 @@ const DetailedPost = () => {
   useEffect(() => {
     if (id) {
       dispatch(getPost(id));
-      window.scrollTo(0, 0);
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
     dispatch(getAllComments());
   }, [id]);
