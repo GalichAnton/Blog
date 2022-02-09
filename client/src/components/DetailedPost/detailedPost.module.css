@@ -58,6 +58,8 @@
 }
 .detailedPost__comments{
   margin-bottom: 30px;
+  max-height: 400px;
+  overflow: auto;
 }
 .detailedPost__addComment{
   display: flex;
