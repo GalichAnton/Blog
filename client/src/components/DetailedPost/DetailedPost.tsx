@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getPost } from '../../store/actionCreators/postsAC';
 import Comment from '../Comment/Comment';
 import { createComment, getAllComments } from '../../store/actionCreators/commentAC';
+import ReactMarkdown from 'react-markdown';
 import MyLoader from '../Skeleton/Loader';
 import {
   currentPostSelector,
@@ -94,7 +95,9 @@ const DetailedPost = () => {
             <div className={styles.detailedPost__subtitle}>{currentPost.user?.fullName}</div>
           </div>
           <div className={styles.detailedPost__body}>
-            <div className={styles.detailedPost__text}>{currentPost && currentPost.text}</div>
+            <div className={styles.detailedPost__text}>
+              <ReactMarkdown>{currentPost && currentPost.text}</ReactMarkdown>
+            </div>
             <h3 className={styles.detailedPost__commentTitle}>
               Комментарии ({postComments?.length})
             </h3>

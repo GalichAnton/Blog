@@ -23,7 +23,7 @@ const SearchLine = () => {
     dispatch(setModalActive());
   };
   const logoutHandler = () => {
-    if (confirm('Вы действительно хотите выйти?')) {
+    if (window.confirm('Вы действительно хотите выйти?')) {
       dispatch(removeUser());
       localStorage.clear();
     }

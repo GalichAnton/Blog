@@ -19,7 +19,7 @@ const UploadBar: FC<IProps> = ({ onChangeUrl, url }) => {
       const formData = new FormData();
       formData.append('file', fileList[0]);
       dispatch(getPhotoUrl(formData));
-    } else alert('Вы не выбрали файл');
+    } else window.alert('Вы не выбрали файл');
   };
   useEffect(() => {
     onChangeUrl(photoUrl);
