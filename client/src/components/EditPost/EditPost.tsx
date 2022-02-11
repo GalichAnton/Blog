@@ -78,7 +78,7 @@ const EditPost = () => {
   };
 
   const deletePostClick = async () => {
-    if (confirm('Вы действитнльно хотите удалить статью?')) {
+    if (window.confirm('Вы действитнльно хотите удалить статью?')) {
       id && (await dispatch(deletePost(id)));
       !error && (await navigate('/'));
     }
